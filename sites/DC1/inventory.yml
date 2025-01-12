@@ -1,0 +1,28 @@
+---
+SITE1:
+  children:
+    CVP:
+      hosts:
+        cvp:
+    DC1_FABRIC:
+      children:
+        DC1_SPINES:
+          hosts:
+            DC1-SP1:
+            DC1-SP2:
+        DC1_LEAFS:
+          hosts:
+            DC1-CL1:
+            DC1-CL2:
+            DC1-CL3:
+            DC1-CL4:
+            DC1-BL1:
+            DC1-BL2:
+    DC1_NETWORK_SERVICES:
+      children:
+        DC1_SPINES:
+        DC1_LEAFS:
+    DC1_CONNECTED_ENDPOINTS:
+      children:
+        DC1_SPINES:
+        DC1_LEAFS:
