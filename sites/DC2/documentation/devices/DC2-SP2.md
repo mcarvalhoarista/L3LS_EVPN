@@ -14,6 +14,7 @@
   - [AAA Authorization](#aaa-authorization)
 - [Monitoring](#monitoring)
   - [TerminAttr Daemon](#terminattr-daemon)
+  - [Logging](#logging)
 - [Spanning Tree](#spanning-tree)
   - [Spanning Tree Summary](#spanning-tree-summary)
   - [Spanning Tree Device Configuration](#spanning-tree-device-configuration)
@@ -231,6 +232,31 @@ aaa authorization exec default local
 daemon TerminAttr
    exec /usr/bin/TerminAttr -cvaddr=10.88.160.63:9910 -cvauth=token,/tmp/token -cvvrf=MGMT -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs
    no shutdown
+```
+
+### Logging
+
+#### Logging Servers and Features Summary
+
+| Type | Level |
+| -----| ----- |
+
+| VRF | Source Interface |
+| --- | ---------------- |
+| MGMT | Management1 |
+
+| VRF | Hosts | Ports | Protocol |
+| --- | ----- | ----- | -------- |
+| MGMT | 10.200.0.108 | Default | UDP |
+| MGMT | 10.200.1.108 | Default | UDP |
+
+#### Logging Servers and Features Device Configuration
+
+```eos
+!
+logging vrf MGMT host 10.200.0.108
+logging vrf MGMT host 10.200.1.108
+logging vrf MGMT source-interface Management1
 ```
 
 ## Spanning Tree
