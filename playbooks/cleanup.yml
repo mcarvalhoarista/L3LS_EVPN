@@ -9,15 +9,28 @@
         commands:
           - no router bgp
           - default interface ethernet 1-8
+          - no mlag configuration
           - no interface Vxlan1
           - no interface port-channel 1-1000
           - no interface loopback 0-1000
-          - no vlan 10-1000
-          - no interface vlan 10-1000
+          - no interface vlan 10-4094
+          - no vlan 10-4094
           - no vrf instance BLUE
           - no vrf instance RED
+          - no vrf instance OVERLAY
           - no ip address virtual source-nat vrf BLUE address
           - no ip address virtual source-nat vrf RED address
+          - no ip address virtual source-nat vrf OVERLAY address
           - no route-map RM-CONN-2-BGP
           - no ip prefix-list PL-LOOPBACKS-EVPN-OVERLAY
+          - no route-map RM-MLAG-PEER-IN
         save_when: always
+
+    # - name: configure terminattr
+    #   arista.eos.eos_config:
+    #     commands:
+    #       - shutdown
+    #       - exec /usr/bin/TerminAttr -cvaddr=10.88.160.63:9910 -cvauth=token,/tmp/token -cvvrf=MGMT -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs
+    #       - no shutdown
+    #     parents: daemon TerminAttr
+    #     save_when: always

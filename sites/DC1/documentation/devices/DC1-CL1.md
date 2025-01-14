@@ -10,6 +10,7 @@
   - [Management API HTTP](#management-api-http)
 - [Authentication](#authentication)
   - [Local Users](#local-users)
+  - [IP TACACS Source Interfaces](#ip-tacacs-source-interfaces)
   - [AAA Authorization](#aaa-authorization)
 - [Monitoring](#monitoring)
   - [TerminAttr Daemon](#terminattr-daemon)
@@ -27,6 +28,7 @@
   - [VLANs Device Configuration](#vlans-device-configuration)
 - [Interfaces](#interfaces)
   - [Switchport Default](#switchport-default)
+  - [Interface Defaults](#interface-defaults)
   - [Ethernet Interfaces](#ethernet-interfaces)
   - [Port-Channel Interfaces](#port-channel-interfaces)
   - [Loopback Interfaces](#loopback-interfaces)
@@ -101,13 +103,13 @@ dns domain atd.lab
 
 | Server | VRF | Preferred | Burst | iBurst | Version | Min Poll | Max Poll | Local-interface | Key |
 | ------ | --- | --------- | ----- | ------ | ------- | -------- | -------- | --------------- | --- |
-| 10.88.160.60 | MGMT | - | - | True | - | - | - | Management1 | - |
+| 0.pool.ntp.org | MGMT | - | - | True | - | - | - | Management1 | - |
 
 #### NTP Device Configuration
 
 ```eos
 !
-ntp server vrf MGMT 10.88.160.60 iburst local-interface Management1
+ntp server vrf MGMT 0.pool.ntp.org iburst local-interface Management1
 ```
 
 ### Management SSH
@@ -195,6 +197,21 @@ username cvpadmin privilege 15 role network-admin secret sha512 <removed>
 username marcelo privilege 15 role network-admin secret sha512 <removed>
 ```
 
+### IP TACACS Source Interfaces
+
+#### IP TACACS Source Interfaces
+
+| VRF | Source Interface Name |
+| --- | --------------- |
+| MGMT | Management1 |
+
+#### IP TACACS Source Interfaces Device Configuration
+
+```eos
+!
+ip tacacs vrf MGMT source-interface Management1
+```
+
 ### AAA Authorization
 
 #### AAA Authorization Summary
@@ -220,14 +237,14 @@ aaa authorization exec default local
 
 | CV Compression | CloudVision Servers | VRF | Authentication | Smash Excludes | Ingest Exclude | Bypass AAA |
 | -------------- | ------------------- | --- | -------------- | -------------- | -------------- | ---------- |
-| gzip | 10.88.160.63:9910 | - | token,/tmp/token | ale,flexCounter,hardware,kni,pulse,strata | /Sysdb/cell/1/agent,/Sysdb/cell/2/agent | False |
+| gzip | 10.88.160.63:9910 | MGMT | token,/tmp/token | ale,flexCounter,hardware,kni,pulse,strata | /Sysdb/cell/1/agent,/Sysdb/cell/2/agent | False |
 
 #### TerminAttr Daemon Device Configuration
 
 ```eos
 !
 daemon TerminAttr
-   exec /usr/bin/TerminAttr -cvaddr=10.88.160.63:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs
+   exec /usr/bin/TerminAttr -cvaddr=10.88.160.63:9910 -cvauth=token,/tmp/token -cvvrf=MGMT -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs
    no shutdown
 ```
 
@@ -342,6 +359,24 @@ vlan 4094
 ```eos
 !
 switchport default mode routed
+```
+
+### Interface Defaults
+
+#### Interface Defaults Summary
+
+- Default Ethernet Interface Shutdown: True
+
+- Default Routed Interface MTU: 1500
+
+#### Interface Defaults Device Configuration
+
+```eos
+!
+interface defaults
+   ethernet
+      shutdown
+   mtu 1500
 ```
 
 ### Ethernet Interfaces

@@ -11,7 +11,7 @@ all:
           ansible_httpapi_host: 10.88.160.63
           ansible_host: 10.88.160.63
           ansible_connection: httpapi
-          ansible_httpapi_use_ssl: false
+          ansible_httpapi_use_ssl: True
           ansible_httpapi_validate_certs: false
           ansible_network_os: eos
           ansible_httpapi_port: 443

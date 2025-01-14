@@ -17,6 +17,35 @@ ansible_python_interpreter: $(which python3)
 avd_data_conversion_mode: error
 avd_data_validation_mode: error
 
+# Cloud Vision server information
+cvp_token_file: /tmp/token
+cvp_instance_ips:
+  - 10.88.160.63
+
+# update overlay mtu for real deployment -> 9100
+custom_structured_configuration_interface_defaults:
+  mtu: 1500
+  ethernet:
+    shutdown: true
+
+custom_structured_configuration_switchport_default:
+  mode: routed
+
+custom_structured_configuration_banners:
+  login: |
+    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    !!                                                                        !!
+    !! IF THE COMPANY HAS NOT AUTHORISED YOUR ACCESS TO THIS SYSTEM YOU       !!
+    !! WILL COMMIT A CRIMINAL OFFENCE IF YOU DO NOT IMMEDIATELY DISCONNECT.   !!
+    !!                                                                        !!
+    !! UNAUTHORISED ACCESS IS STRICTLY FORBIDDEN AND A DISCIPLINARY OFFENCE.  !!
+    !!                                                                        !!
+    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+    EOF
+
+
+
 # CVP node variables
 cv_collection: v3
 execute_tasks: true
@@ -63,10 +92,14 @@ aaa_authorization:
 # NTP Servers IP or DNS name, first NTP server will be preferred, and sourced from Management VRF
 ntp:
   servers:
-    - name: 10.88.160.60
+    - name: 0.pool.ntp.org
       iburst: true
       local_interface: Management1
       vrf: MGMT
+
+custom_structured_configuration_ip_tacacs_source_interfaces:
+  - name: Management1
+    vrf: MGMT
 
 # Domain/DNS
 dns_domain: atd.lab

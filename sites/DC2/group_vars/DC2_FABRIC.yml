@@ -5,19 +5,6 @@ fabric_name: DC2_FABRIC
 design:
   type: l3ls-evpn
 
-custom_structured_configuration_banners:
-  login: |
-    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    !!                                                                        !!
-    !! IF THE COMPANY HAS NOT AUTHORISED YOUR ACCESS TO THIS SYSTEM YOU       !!
-    !! WILL COMMIT A CRIMINAL OFFENCE IF YOU DO NOT IMMEDIATELY DISCONNECT.   !!
-    !!                                                                        !!
-    !! UNAUTHORISED ACCESS IS STRICTLY FORBIDDEN AND A DISCIPLINARY OFFENCE.  !!
-    !!                                                                        !!
-    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-    EOF
-
 custom_structured_configuration_switchport_default:
   mode: routed
 

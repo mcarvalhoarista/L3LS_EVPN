@@ -6,9 +6,9 @@ help: ## Display help message
 # Site 1
 ########################################################
 
-.PHONY: ping-site-1
-ping-site-1: ## Ping Nodes
-	ansible-playbook playbooks/ping.yml -i sites/site_1/inventory.yml -e "target_hosts=SITE1_FABRIC"
+.PHONY: ping-dc1
+ping-dc1: ## Ping Nodes
+	ansible-playbook playbooks/ping.yml -i sites/DC1/inventory.yml -e "target_hosts=DC1_FABRIC"
 
 .PHONY: build-dc1
 build-dc1: ## Build Configs
@@ -18,17 +18,21 @@ build-dc1: ## Build Configs
 deploy-dc1: ## Deploy Configs via eAPI
 	ansible-playbook playbooks/deploy.yml -i sites/DC1/inventory.yml -e "target_hosts=DC1_FABRIC"
 
-.PHONY: cvp-site-1
-cvp-site-1: ## Deploy Configs via eAPI
-	ansible-playbook playbooks/cvp1.yml -i sites/site_1/inventory.yml
+.PHONY: cvp-dc1
+cvp-dc1: ## Deploy Configs via eAPI
+	ansible-playbook playbooks/cvp1.yml -i sites/DC1/inventory.yml
+
+.PHONY: cleanup-dc1
+cleanup-dc1: ## Cleanup Configs via eAPI
+	ansible-playbook playbooks/cleanup.yml -i sites/DC1/inventory.yml -e "target_hosts=DC1_FABRIC"
 
 ########################################################
 # Site 2
 ########################################################
 
-.PHONY: ping-site-2
-ping-site-2: ## Ping Nodes
-	ansible-playbook playbooks/ping.yml -i sites/site_2/inventory.yml -e "target_hosts=SITE2_FABRIC"
+.PHONY: ping-dc2
+ping-dc2: ## Ping Nodes
+	ansible-playbook playbooks/ping.yml -i sites/DC2/inventory.yml -e "target_hosts=DC2_FABRIC"
 
 .PHONY: build-dc2
 build-dc2: ## Build Configs
@@ -38,9 +42,14 @@ build-dc2: ## Build Configs
 deploy-dc2: ## Deploy Configs via eAPI
 	ansible-playbook playbooks/deploy.yml -i sites/DC2/inventory.yml -e "target_hosts=DC2_FABRIC"
 
-.PHONY: cvp-site-2
-cvp-site-2: ## Deploy Configs via eAPI
-	ansible-playbook playbooks/cvp2.yml -i sites/site_2/inventory.yml
+.PHONY: cvp-dc2
+cvp-dc2: ## Deploy Configs via eAPI
+	ansible-playbook playbooks/cvp2.yml -i sites/DC2/inventory.yml
+
+.PHONY: cleanup-dc2
+cleanup-dc2: ## Cleanup Configs via eAPI
+	ansible-playbook playbooks/cleanup.yml -i sites/DC2/inventory.yml -e "target_hosts=DC2_FABRIC"
+
 
 ########################################################
 # WAN & Hosts - Lab Prep
