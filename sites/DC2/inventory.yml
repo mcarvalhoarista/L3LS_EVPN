@@ -1,28 +1,47 @@
 ---
-SITE1:
+all:
   children:
     CVP:
       hosts:
-        cvp:
-    DC2_FABRIC:
+        cv_ztp:
+          # Address of host that will act as DHCP server
+          ansible_host: 10.88.160.63
+        cv_server:
+          # section for CVP primary node address
+          ansible_httpapi_host: 10.88.160.63
+          ansible_host: 10.88.160.63
+          ansible_connection: httpapi
+          ansible_httpapi_use_ssl: false
+          ansible_httpapi_validate_certs: false
+          ansible_network_os: eos
+          ansible_httpapi_port: 443
+          fabric_name: DC2_FABRIC
+          # Configuration to get Virtual Env information
+          ansible_python_interpreter: $(which python3)
+
+    GLOBAL:
       children:
-        DC2_SPINES:
-          hosts:
-            DC2-SP1:
-            DC2-SP2:
-        DC2_LEAFS:
-          hosts:
-            DC2-CL1:
-            DC2-CL2:
-            DC2-CL3:
-            DC2-CL4:
-            DC2-BL1:
-            DC2-BL2:
-    DC2_NETWORK_SERVICES:
-      children:
-        DC2_SPINES:
-        DC2_LEAFS:
-    DC2_CONNECTED_ENDPOINTS:
-      children:
-        DC2_SPINES:
-        DC2_LEAFS:
+        DC2:
+          children:
+            DC2_FABRIC:
+              children:
+                DC2_SPINES:
+                  hosts:
+                    DC2-SP1:
+                    DC2-SP2:
+                DC2_LEAFS:
+                  hosts:
+                    DC2-CL1:
+                    DC2-CL2:
+                    DC2-CL3:
+                    DC2-CL4:
+                    DC2-BL1:
+                    DC2-BL2:
+            DC2_NETWORK_SERVICES:
+              children:
+                DC2_SPINES:
+                DC2_LEAFS:
+            DC2_CONNECTED_ENDPOINTS:
+              children:
+                DC2_SPINES:
+                DC2_LEAFS:

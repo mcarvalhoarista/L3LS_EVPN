@@ -1,7 +1,7 @@
 ---
 
 # Credentials for CVP and EOS Switches
-ansible_user: arista
+ansible_user: cvpadmin
 # ansible_password: arista123
 ansible_password: "{{ lookup('env', 'LABPASSPHRASE') }}"
 ansible_network_os: arista.eos.eos
@@ -38,6 +38,14 @@ local_users:
     role: network-admin
     sha512_password: $6$JOlaFRui.uKQAgcY$F.A6VZCIcIlbRMrk//U2.q9ucyl95ymC1dGz9BLpwl3NkIhLbOkCh.N.nYaiLBIUdz3mXzAAutF/APAAtamUB.
 
+
+# Management SSH
+custom_structured_configuration_management_ssh:
+  idle_timeout: 5
+  enable: true
+  vrfs:
+    - name: MGMT
+      enable: true
 
 # OOB Management network default gateway.
 default_mgmt_method: oob
@@ -118,20 +126,3 @@ l3_edge:
       interfaces: [ Ethernet4, Ethernet4 ]
       profile: S1_to_S2_profile
 
-
-
-custom_structured_configuration_banners:
-  login: |
-    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    !!                                                                        !!
-    !! IF THE COMPANY HAS NOT AUTHORISED YOUR ACCESS TO THIS SYSTEM YOU       !!
-    !! WILL COMMIT A CRIMINAL OFFENCE IF YOU DO NOT IMMEDIATELY DISCONNECT.   !!
-    !!                                                                        !!
-    !! UNAUTHORISED ACCESS IS STRICTLY FORBIDDEN AND A DISCIPLINARY OFFENCE.  !!
-    !!                                                                        !!
-    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-    EOF
-
-custom_structured_configuration_switchport_default:
-  mode: routed

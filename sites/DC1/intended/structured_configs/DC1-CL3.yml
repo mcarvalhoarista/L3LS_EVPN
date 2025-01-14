@@ -336,6 +336,12 @@ virtual_source_nat_vrfs:
   ip_address: 10.100.100.5
 metadata:
   platform: cEOS
+management_ssh:
+  idle_timeout: 5
+  enable: true
+  vrfs:
+  - name: MGMT
+    enable: true
 banners:
   login: '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 

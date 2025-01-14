@@ -218,6 +218,12 @@ router_bfd:
     multiplier: 3
 metadata:
   platform: cEOS
+management_ssh:
+  idle_timeout: 5
+  enable: true
+  vrfs:
+  - name: MGMT
+    enable: true
 banners:
   login: '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 

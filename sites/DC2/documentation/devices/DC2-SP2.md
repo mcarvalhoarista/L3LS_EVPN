@@ -6,6 +6,7 @@
   - [Management Interfaces](#management-interfaces)
   - [DNS Domain](#dns-domain)
   - [NTP](#ntp)
+  - [Management SSH](#management-ssh)
   - [Management API HTTP](#management-api-http)
 - [Authentication](#authentication)
   - [Local Users](#local-users)
@@ -92,6 +93,44 @@ dns domain atd.lab
 ```eos
 !
 ntp server vrf MGMT 10.88.160.60 iburst local-interface Management1
+```
+
+### Management SSH
+
+#### SSH Timeout and Management
+
+| Idle Timeout | SSH Management |
+| ------------ | -------------- |
+| 5 | Enabled |
+
+#### Max number of SSH sessions limit and per-host limit
+
+| Connection Limit | Max from a single Host |
+| ---------------- | ---------------------- |
+| - | - |
+
+#### Ciphers and Algorithms
+
+| Ciphers | Key-exchange methods | MAC algorithms | Hostkey server algorithms |
+|---------|----------------------|----------------|---------------------------|
+| default | default | default | default |
+
+#### VRFs
+
+| VRF | Status |
+| --- | ------ |
+| MGMT | Enabled |
+
+#### Management SSH Device Configuration
+
+```eos
+!
+management ssh
+   idle-timeout 5
+   no shutdown
+   !
+   vrf MGMT
+      no shutdown
 ```
 
 ### Management API HTTP
