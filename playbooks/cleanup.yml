@@ -1,0 +1,23 @@
+---
+- name: Cleanup Basic Configuration on Devices
+  hosts: "{{ target_hosts }}"
+  gather_facts: false
+
+  tasks:
+    - name: run multiple commands on remote nodes
+      arista.eos.eos_config:
+        commands:
+          - no router bgp
+          - default interface ethernet 1-8
+          - no interface Vxlan1
+          - no interface port-channel 1-1000
+          - no interface loopback 0-1000
+          - no vlan 10-1000
+          - no interface vlan 10-1000
+          - no vrf instance BLUE
+          - no vrf instance RED
+          - no ip address virtual source-nat vrf BLUE address
+          - no ip address virtual source-nat vrf RED address
+          - no route-map RM-CONN-2-BGP
+          - no ip prefix-list PL-LOOPBACKS-EVPN-OVERLAY
+        save_when: always

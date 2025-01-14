@@ -12,11 +12,13 @@ spine:
     loopback_ipv4_pool: 10.250.2.0/24
     bgp_as: 65200
   nodes:
-    - name: DC1-SP1
+    - name: DC2-SP1
       id: 1
+      mgmt_interface: Management1
       mgmt_ip: 10.88.169.139/24
-    - name: DC1-SP2
+    - name: DC2-SP2
       id: 2
+      mgmt_interface: Management1
       mgmt_ip: 10.88.169.140/24
 
 # Leaf Switches
@@ -28,7 +30,7 @@ l3leaf:
     loopback_ipv4_pool: 10.250.2.0/24
     loopback_ipv4_offset: 2
     vtep_loopback_ipv4_pool: 10.255.2.0/24
-    uplink_switches: [ DC1-SP1, DC1-SP2 ]
+    uplink_switches: [ DC2-SP1, DC2-SP2 ]
     uplink_interfaces: [ Ethernet1, Ethernet2 ]
     uplink_ipv4_pool: 172.16.2.0/24
     mlag_interfaces: [ Ethernet8 ]
@@ -36,29 +38,33 @@ l3leaf:
     mlag_peer_l3_ipv4_pool: 10.252.2.0/24
     virtual_router_mac_address: 00:1c:73:00:00:99
   node_groups:
-    - group: DC1_RACK1
+    - group: DC2_RACK1
       bgp_as: 65201
       nodes:
-        - name: DC1-CL1
+        - name: DC2-CL1
           id: 1
+          mgmt_interface: Management1
           mgmt_ip: 10.88.169.143/24
           uplink_switch_interfaces: [ Ethernet1, Ethernet1 ]
-        - name: DC1-CL2
+        - name: DC2-CL2
           id: 2
+          mgmt_interface: Management1
           mgmt_ip: 10.88.169.144/24
           uplink_switch_interfaces: [ Ethernet2, Ethernet2 ]
-    - group: DC1_RACK2
+    - group: DC2_RACK2
       bgp_as: 65202
       nodes:
-        - name: DC1-CL3
+        - name: DC2-CL3
           id: 3
+          mgmt_interface: Management1
           mgmt_ip: 10.88.169.145/24
           uplink_switch_interfaces: [ Ethernet3, Ethernet3 ]
-        - name: DC1-CL4
+        - name: DC2-CL4
           id: 4
+          mgmt_interface: Management1
           mgmt_ip: 10.88.169.146/24
           uplink_switch_interfaces: [ Ethernet4, Ethernet4 ]
-    - group: DC1_BL
+    - group: DC2_BL
       bgp_as: 65203
       evpn_gateway:
          evpn_l2:
@@ -67,21 +73,23 @@ l3leaf:
            enabled: true
            inter_domain: true
       nodes:
-        - name: DC1-BL1
+        - name: DC2-BL1
           id: 5
+          mgmt_interface: Management1
           mgmt_ip: 10.88.169.141/24
           uplink_switch_interfaces: [ Ethernet5, Ethernet5 ]
           evpn_gateway:
              remote_peers:
-               - hostname: DC2-BL1
+               - hostname: DC1-BL1
                  bgp_as: 65103
                  ip_address: 10.250.1.7
-        - name: DC1-BL2
+        - name: DC2-BL2
           id: 6
+          mgmt_interface: Management1
           mgmt_ip: 10.88.169.142/24
           uplink_switch_interfaces: [ Ethernet6, Ethernet6 ]
           evpn_gateway:
              remote_peers:
-               - hostname: DC2-BL2
+               - hostname: DC1-BL2
                  bgp_as: 65103
                  ip_address: 10.250.1.8

@@ -14,9 +14,11 @@ spine:
   nodes:
     - name: DC1-SP1
       id: 1
+      mgmt_interface: Management1
       mgmt_ip: 10.88.169.131/24
     - name: DC1-SP2
       id: 2
+      mgmt_interface: Management1
       mgmt_ip: 10.88.169.132/24
 
 # Leaf Switches
@@ -41,10 +43,12 @@ l3leaf:
       nodes:
         - name: DC1-CL1
           id: 1
+          mgmt_interface: Management1
           mgmt_ip: 10.88.169.135/24
           uplink_switch_interfaces: [ Ethernet1, Ethernet1 ]
         - name: DC1-CL2
           id: 2
+          mgmt_interface: Management1
           mgmt_ip: 10.88.169.136/24
           uplink_switch_interfaces: [ Ethernet2, Ethernet2 ]
     - group: DC1_RACK2
@@ -52,10 +56,12 @@ l3leaf:
       nodes:
         - name: DC1-CL3
           id: 3
+          mgmt_interface: Management1
           mgmt_ip: 10.88.169.137/24
           uplink_switch_interfaces: [ Ethernet3, Ethernet3 ]
         - name: DC1-CL4
           id: 4
+          mgmt_interface: Management1
           mgmt_ip: 10.88.169.138/24
           uplink_switch_interfaces: [ Ethernet4, Ethernet4 ]
     - group: DC1_BL
@@ -69,6 +75,7 @@ l3leaf:
       nodes:
         - name: DC1-BL1
           id: 5
+          mgmt_interface: Management1
           mgmt_ip: 10.88.169.133/24
           uplink_switch_interfaces: [ Ethernet5, Ethernet5 ]
           evpn_gateway:
@@ -78,6 +85,7 @@ l3leaf:
                  ip_address: 10.250.2.7
         - name: DC1-BL2
           id: 6
+          mgmt_interface: Management1
           mgmt_ip: 10.88.169.134/24
           uplink_switch_interfaces: [ Ethernet6, Ethernet6 ]
           evpn_gateway:
