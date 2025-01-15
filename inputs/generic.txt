@@ -1,0 +1,7 @@
+no alias shv show version
+no alias shr show running-config
+
+no vrf instance PEPITO
+
+router bgp 65103
+   no vrf PEPITO

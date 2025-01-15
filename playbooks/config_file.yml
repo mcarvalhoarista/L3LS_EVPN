@@ -1,0 +1,10 @@
+---
+- name: Configuration from file on Devices
+  hosts: "{{ target_hosts }}"
+  gather_facts: false
+
+  tasks:
+    - name: run config from file on remote nodes
+      arista.eos.eos_config:
+        src: ../inputs/generic.txt
+        save_when: always
