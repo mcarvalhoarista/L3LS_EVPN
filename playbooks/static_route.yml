@@ -16,3 +16,38 @@
                       - forward_router_address: 2.2.2.2
                         interface: Ethernet1
         state: merged
+
+  # tasks:
+  #   - name: create route-maps
+  #     arista.eos.eos_route_maps:
+  #       config:
+  #         - route_map: "mapmerge"
+  #           entries:
+  #             - description: "merged_map"
+  #               action: "permit"
+  #               sequence: 10
+  #               match:
+  #                 router_id: 22
+  #             - description: "newmap"
+  #               action: "deny"
+  #               sequence: 25
+  #               continue_sequence: 45
+  #               match:
+  #                 interface: "Ethernet1"
+  #         - route_map: "mapmerge2"
+  #           entries:
+  #             - sub_route_map:
+  #                 name: "mapmerge"
+  #               action: "deny"
+  #               sequence: 45
+  #               set:
+  #                 metric:
+  #                   value: 25
+  #                   add: "igp-metric"
+  #                 as_path:
+  #                   prepend:
+  #                     last_as: 2
+  #               match:
+  #                 ipv6:
+  #                   resolved_next_hop: "list1"
+  #       state: merged
