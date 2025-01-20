@@ -1,0 +1,18 @@
+---
+- name: Configure Static Route on Devices
+  hosts: "{{ target_hosts }}"
+  gather_facts: false
+
+  tasks:
+    - name: create static route
+      arista.eos.eos_static_routes:
+        config:
+          - vrf: OVERLAY
+            address_families:
+              - afi: ipv4
+                routes:
+                  - dest: 10.2.2.0/24
+                    next_hops:
+                      - forward_router_address: 2.2.2.2
+                        interface: Ethernet1
+        state: merged

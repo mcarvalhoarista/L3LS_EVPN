@@ -26,6 +26,10 @@ cvp-dc1: ## Deploy Configs via eAPI
 cleanup-dc1: ## Cleanup Configs via eAPI
 	ansible-playbook playbooks/cleanup.yml -i sites/DC1/inventory.yml -e "target_hosts=DC1_FABRIC"
 
+.PHONY: static-dc1
+static-dc1: ## Cleanup Configs via eAPI
+	ansible-playbook playbooks/static_route.yml -i sites/DC1/inventory.yml -e "target_hosts=DC1-BL1"
+
 ########################################################
 # Site 2
 ########################################################
